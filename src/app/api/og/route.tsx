@@ -100,7 +100,7 @@ export async function GET(req: Request) {
             fontSize: '20px', fontWeight: 600,
             color: ink, lineHeight: 1.5,
           }}>
-            &ldquo;{summary}&rdquo;
+            "{summary}"
           </div>
         )}
 
