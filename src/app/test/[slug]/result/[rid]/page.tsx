@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const resolved = toResolved(content, rid);
   const base = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://testloop-alpha.vercel.app';
-  const ogUrl = `${base}/api/og?slug=${slug}&rid=${rid}`;
+  const ogUrl = `${base}/og/${slug}-${rid}.png`;
 
   return {
     title: `${resolved.view.title} - ${content.meta.title}`,

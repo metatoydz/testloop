@@ -16,7 +16,7 @@ export function ShareButtons({ result, url, slug, rid }: ShareButtonsProps) {
   const shareText = result.view.shareText;
 
   const ogImageUrl = slug && rid
-    ? `https://testloop-alpha.vercel.app/api/og?slug=${slug}&rid=${rid}`
+    ? `https://testloop-alpha.vercel.app/og/${slug}-${rid}.png`
     : undefined;
 
   const copyToClipboard = async () => {
