@@ -70,6 +70,8 @@ export default async function ResultPage({ params }: Props) {
           <ShareButtons
             result={resolved}
             url={`https://testloop-alpha.vercel.app/test/${slug}/result/${rid}`}
+            slug={slug}
+            rid={rid}
           />
         </div>
 

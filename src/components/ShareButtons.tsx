@@ -6,48 +6,69 @@ import { useState } from 'react';
 interface ShareButtonsProps {
   result: ResolvedResult;
   url?: string;
+  slug?: string;
+  rid?: string;
 }
 
-export function ShareButtons({ result, url }: ShareButtonsProps) {
+export function ShareButtons({ result, url, slug, rid }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
   const shareUrl = url ?? (typeof window !== 'undefined' ? window.location.href : '');
   const shareText = result.view.shareText;
 
+  const ogImageUrl = slug && rid
+    ? `https://testloop-alpha.vercel.app/api/og?slug=${slug}&rid=${rid}`
+    : undefined;
+
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
     } catch {
-      // fallback
       const el = document.createElement('textarea');
       el.value = shareUrl;
       document.body.appendChild(el);
       el.select();
       document.execCommand('copy');
       document.body.removeChild(el);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
     }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleKakaoShare = () => {
-    // 카카오 SDK가 로드됐는지 확인
-    const w = window as Window & { Kakao?: { Share?: { sendDefault: (opts: unknown) => void } } };
-    if (w.Kakao?.Share) {
+    const w = window as Window & {
+      Kakao?: {
+        isInitialized: () => boolean;
+        Share?: {
+          sendDefault: (opts: unknown) => void;
+        };
+      };
+    };
+
+    if (w.Kakao?.isInitialized() && w.Kakao?.Share) {
       w.Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
           title: result.view.title,
           description: shareText,
-          imageUrl: `https://testloop-alpha.vercel.app/api/og?slug=${encodeURIComponent(shareUrl.split('/test/')[1]?.split('/result/')[0] ?? '')}&rid=${encodeURIComponent(shareUrl.split('/result/')[1] ?? '')}`,
-          link: { mobileWebUrl: shareUrl, webUrl: shareUrl },
+          imageUrl: ogImageUrl,
+          link: {
+            mobileWebUrl: shareUrl,
+            webUrl: shareUrl,
+          },
         },
-        buttons: [{ title: '결과 보기', link: { mobileWebUrl: shareUrl, webUrl: shareUrl } }],
+        buttons: [
+          {
+            title: '내 결과 보기',
+            link: {
+              mobileWebUrl: shareUrl,
+              webUrl: shareUrl,
+            },
+          },
+        ],
       });
     } else {
-      // 카카오 SDK 없으면 Web Share API
-      if (navigator.share) {
+      // SDK 미로드 시 Web Share API → 클립보드 순 fallback
+      if (typeof navigator !== 'undefined' && navigator.share) {
         navigator.share({ title: result.view.title, text: shareText, url: shareUrl });
       } else {
         copyToClipboard();
