@@ -1,7 +1,7 @@
 export const runtime = 'nodejs';
 
 import { ImageResponse } from 'next/og';
-import { loadContent } from '@/lib/content/loader';
+import chamgyoyukData from '../../../../content/chamgyoyuk.json';
 
 const CARD: Record<string, { bg: string; ink: string; accent: string; name: string; tagline: string; no: string }> = {
   late:    { bg: '#FFD23F', ink: '#181818', accent: '#181818', name: '곧도착러',        tagline: '지각계의 큰손',         no: '01' },
@@ -19,8 +19,12 @@ export async function GET(req: Request) {
   const slug = searchParams.get('slug') ?? '';
   const rid = searchParams.get('rid') ?? '';
 
-  const content = loadContent(slug);
-  const result = content?.results.find(r => r.id === rid);
+  // content/*.json은 fs로 읽으면 Vercel에서 실패 → 정적 import 사용
+  const contentMap: Record<string, { results: Array<{ id: string; title: string; summary?: string }> }> = {
+    chamgyoyuk: chamgyoyukData as { results: Array<{ id: string; title: string; summary?: string }> },
+  };
+  const content = contentMap[slug];
+  const result = content?.results.find((r: { id: string }) => r.id === rid);
   const card = CARD[rid];
 
   const title = result?.title ?? 'TestLoop';
