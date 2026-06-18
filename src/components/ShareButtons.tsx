@@ -1,6 +1,7 @@
 'use client';
 
 import type { ResolvedResult } from '@/lib/scoring/contract';
+import { useState } from 'react';
 
 interface ShareButtonsProps {
   result: ResolvedResult;
@@ -8,45 +9,50 @@ interface ShareButtonsProps {
 }
 
 export function ShareButtons({ result, url }: ShareButtonsProps) {
-  const shareUrl =
-    url ?? (typeof window !== 'undefined' ? window.location.href : '');
+  const [copied, setCopied] = useState(false);
+  const shareUrl = url ?? (typeof window !== 'undefined' ? window.location.href : '');
   const shareText = result.view.shareText;
 
-  const handleWebShare = async () => {
-    if (typeof navigator !== 'undefined' && navigator.share) {
-      try {
-        await navigator.share({
-          title: result.view.title,
-          text: shareText,
-          url: shareUrl,
-        });
-      } catch (err) {
-        // 사용자가 취소한 경우 무시
-        if ((err as Error).name !== 'AbortError') {
-          console.error('Share failed:', err);
-        }
-      }
-    } else {
-      // Web Share API 미지원 시 클립보드 복사
-      try {
-        await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
-        alert('링크가 클립보드에 복사되었습니다!');
-      } catch {
-        alert('공유 기능을 사용할 수 없습니다.');
-      }
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback
+      const el = document.createElement('textarea');
+      el.value = shareUrl;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
   };
 
   const handleKakaoShare = () => {
-    // 카카오 SDK 준비 (추후 구현)
-    // 현재는 Web Share API로 대체
-    const kakaoKey = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
-    if (!kakaoKey) {
-      handleWebShare();
-      return;
+    // 카카오 SDK가 로드됐는지 확인
+    const w = window as Window & { Kakao?: { Share?: { sendDefault: (opts: unknown) => void } } };
+    if (w.Kakao?.Share) {
+      w.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: result.view.title,
+          description: shareText,
+          imageUrl: `https://testloop-alpha.vercel.app/api/og?slug=${encodeURIComponent(shareUrl.split('/test/')[1]?.split('/result/')[0] ?? '')}&rid=${encodeURIComponent(shareUrl.split('/result/')[1] ?? '')}`,
+          link: { mobileWebUrl: shareUrl, webUrl: shareUrl },
+        },
+        buttons: [{ title: '결과 보기', link: { mobileWebUrl: shareUrl, webUrl: shareUrl } }],
+      });
+    } else {
+      // 카카오 SDK 없으면 Web Share API
+      if (navigator.share) {
+        navigator.share({ title: result.view.title, text: shareText, url: shareUrl });
+      } else {
+        copyToClipboard();
+      }
     }
-    // TODO: 카카오 SDK 초기화 및 공유 구현
-    handleWebShare();
   };
 
   return (
@@ -59,11 +65,11 @@ export function ShareButtons({ result, url }: ShareButtonsProps) {
         카카오톡으로 공유하기
       </button>
       <button
-        onClick={handleWebShare}
+        onClick={copyToClipboard}
         className="flex items-center justify-center gap-2 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors"
       >
-        <span className="text-lg">🔗</span>
-        링크 공유하기
+        <span className="text-lg">{copied ? '✅' : '🔗'}</span>
+        {copied ? '링크 복사됨!' : '링크 복사하기'}
       </button>
     </div>
   );

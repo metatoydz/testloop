@@ -67,7 +67,10 @@ export default async function ResultPage({ params }: Props) {
 
         {/* 공유 버튼 */}
         <div className="mb-8">
-          <ShareButtons result={resolved} />
+          <ShareButtons
+            result={resolved}
+            url={`https://testloop-alpha.vercel.app/test/${slug}/result/${rid}`}
+          />
         </div>
 
         {/* 추천 상품 */}
