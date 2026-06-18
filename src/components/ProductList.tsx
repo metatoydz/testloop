@@ -21,20 +21,8 @@ export function ProductList({ products }: ProductListProps) {
             rel="noopener noreferrer sponsored"
             className="flex items-center gap-4 bg-white border border-gray-200 rounded-xl p-3 hover:shadow-md transition-shadow"
           >
-            <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
-              {product.image ? (
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                  unoptimized
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-2xl">
-                  🛒
-                </div>
-              )}
+            <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center text-2xl">
+              🛒
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-gray-900 text-sm truncate">

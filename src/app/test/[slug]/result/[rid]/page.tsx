@@ -48,13 +48,6 @@ export default async function ResultPage({ params }: Props) {
   }
 
   const resolved = toResolved(content, rid);
-  const base = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://testloop-alpha.vercel.app';
-
-  // 결과 이미지가 없으면 OG 이미지로 대체
-  if (!resolved.view.image || resolved.view.image.startsWith('/img/')) {
-    resolved.view.image = `${base}/api/og?slug=${slug}&rid=${rid}`;
-  }
-
   // 상품 로드 (products.json은 pid → Product 딕셔너리)
   const productsMap = productsData as Record<string, Product>;
   const resultProducts: Product[] = resolved.products
@@ -66,7 +59,10 @@ export default async function ResultPage({ params }: Props) {
       <div className="max-w-md mx-auto px-0 pt-8">
         {/* 결과 카드 */}
         <div className="px-4 mb-6">
-          <ResultCard result={resolved} />
+          <ResultCard
+            result={resolved}
+            summary={content.results.find(r => r.id === rid)?.summary}
+          />
         </div>
 
         {/* 공유 버튼 */}
