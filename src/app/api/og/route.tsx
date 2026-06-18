@@ -1,4 +1,5 @@
-export const runtime = 'edge';
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 import { ImageResponse } from 'next/og';
 // chamgyoyuk 결과 요약 (Edge 용량 절약을 위해 필요한 데이터만 인라인)
@@ -69,7 +70,7 @@ export async function GET(req: Request) {
           }}>
             참교육 진단서 No.{no}
           </div>
-          <div style={{ color: ink, fontSize: '14px', opacity: 0.6 }}>TestLoop</div>
+          <div style={{ color: ink, fontSize: '14px', color: \99\ }}>TestLoop</div>
         </div>
 
         {/* 메인 유형명 */}
