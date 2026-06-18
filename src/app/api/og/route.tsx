@@ -182,8 +182,8 @@ export async function GET(req: Request) {
       (
         <div
           style={{
-            width: '800px',
-            height: '400px',
+            width: '600px',
+            height: '600px',
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
@@ -352,8 +352,8 @@ export async function GET(req: Request) {
         </div>
       ),
       {
-        width: 800,
-        height: 400,
+        width: 600,
+        height: 600,
         fonts,
       }
     );
@@ -369,8 +369,8 @@ export async function GET(req: Request) {
     (
       <div
         style={{
-          width: '800px',
-          height: '400px',
+          width: '600px',
+          height: '600px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -439,8 +439,8 @@ export async function GET(req: Request) {
       </div>
     ),
     {
-      width: 800,
-      height: 400,
+      width: 600,
+      height: 600,
       fonts: fontDataGeneric
         ? [
             {
