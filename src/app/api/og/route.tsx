@@ -29,11 +29,10 @@ export async function GET(req: Request) {
   const slug = searchParams.get('slug') ?? '';
   const rid = searchParams.get('rid') ?? '';
 
-  const result = { summary: CHAMGYOYUK_SUMMARIES[rid] ?? '' };
   const card = CARD[rid];
+  const summary = CHAMGYOYUK_SUMMARIES[rid] ?? '';
+  const title = card?.name ?? 'TestLoop';
 
-  const title = result?.title ?? 'TestLoop';
-  const summary = result?.summary ?? '';
   const bg = card?.bg ?? '#6366F1';
   const ink = card?.ink ?? '#FFFFFF';
   const accent = card?.accent ?? '#A5B4FC';
