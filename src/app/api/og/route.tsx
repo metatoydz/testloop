@@ -147,25 +147,24 @@ export async function GET(req: Request) {
   const title = resolved?.view.title ?? 'TestLoop';
   const testTitle = content?.meta.title ?? 'TestLoop';
 
-  // 구글 NotoSansKR 폰트 로드 (weight 700, 800, 900)
-  // NotoSansKR 폰트 로드 - next/og는 TTF만 지원
-  // jsDelivr CDN에서 직접 TTF 파일 로드
+  // 폰트: 구글 폰트 CSS에서 TTF URL 추출
   let fontData: ArrayBuffer | null = null;
   try {
-    const fontRes = await fetch(
-      'https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-kr@5.1.0/files/noto-sans-kr-korean-700-normal.woff'
+    const cssRes = await fetch(
+      'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap&subset=korean',
+      { headers: { 'User-Agent': 'Mozilla/5.0' } }
     );
-    if (fontRes.ok) fontData = await fontRes.arrayBuffer();
-  } catch {
-    // 폰트 로드 실패 시 기본 폰트
-  }
+    const css = await cssRes.text();
+    const match = css.match(/src:\s*url\(([^)]+\.ttf)\)/);
+    if (match) {
+      const ttfRes = await fetch(match[1]);
+      if (ttfRes.ok) fontData = await ttfRes.arrayBuffer();
+    }
+  } catch { /* 폰트 없으면 기본 폰트 */ }
 
-  const fonts: { name: string; data: ArrayBuffer; style: 'normal'; weight: 700 | 900 }[] = [];
-  if (fontData) {
-    fonts.push({ name: 'NotoSansKR', data: fontData, style: 'normal', weight: 700 });
-    fonts.push({ name: 'NotoSansKR', data: fontData, style: 'normal', weight: 900 });
-  }
-  const fontFamily = fonts.length > 0 ? 'NotoSansKR' : 'sans-serif';
+  const fonts: { name: string; data: ArrayBuffer; style: 'normal'; weight: 700 }[] = [];
+  if (fontData) fonts.push({ name: 'NotoSansKR', data: fontData, style: 'normal', weight: 700 });
+  const fontFamily = fontData ? 'NotoSansKR' : 'sans-serif';
 
   // 참교육 테스트 전용 카드
   const cardCfg = slug === 'chamgyoyuk' ? CHAMGYOYUK_CARD[rid] : undefined;
@@ -283,8 +282,7 @@ export async function GET(req: Request) {
   // 기본 카드 (참교육 외 테스트용)
   const description = resolved?.view.description ?? '나를 알아가는 재미있는 테스트';
 
-  // 위에서 로드한 fontData 재사용
-  const fontDataGeneric = fontData;
+  
 
   return new ImageResponse(
     (
@@ -362,11 +360,11 @@ export async function GET(req: Request) {
     {
       width: 600,
       height: 600,
-      fonts: fontDataGeneric
+      fonts: fontData
         ? [
             {
               name: 'NotoSansKR',
-              data: fontDataGeneric,
+              data: fontData,
               style: 'normal' as const,
               weight: 400 as const,
             },
