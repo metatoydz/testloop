@@ -1,4 +1,4 @@
-export const runtime = 'nodejs';
+﻿export const runtime = 'nodejs';
 
 import { ImageResponse } from 'next/og';
 import { loadContent } from '@/lib/content/loader';
@@ -148,22 +148,23 @@ export async function GET(req: Request) {
   const testTitle = content?.meta.title ?? 'TestLoop';
 
   // 구글 NotoSansKR 폰트 로드 (weight 700, 800, 900)
-  let fontData700: ArrayBuffer | null = null;
-  let fontData900: ArrayBuffer | null = null;
+  // NotoSansKR 폰트 로드 - next/og는 TTF만 지원
+  // jsDelivr CDN에서 직접 TTF 파일 로드
+  let fontData: ArrayBuffer | null = null;
   try {
-    const [res700, res900] = await Promise.all([
-      fetch('https://fonts.gstatic.com/s/notosanskr/v36/PbyxFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.0.woff2'),
-      fetch('https://fonts.gstatic.com/s/notosanskr/v36/PbyxFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.0.woff2'),
-    ]);
-    fontData700 = await res700.arrayBuffer();
-    fontData900 = await res900.arrayBuffer();
+    const fontRes = await fetch(
+      'https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-kr@5.1.0/files/noto-sans-kr-korean-700-normal.woff'
+    );
+    if (fontRes.ok) fontData = await fontRes.arrayBuffer();
   } catch {
-    // 폰트 로드 실패 시 기본 폰트 사용
+    // 폰트 로드 실패 시 기본 폰트
   }
 
   const fonts: { name: string; data: ArrayBuffer; style: 'normal'; weight: 700 | 900 }[] = [];
-  if (fontData700) fonts.push({ name: 'NotoSansKR', data: fontData700, style: 'normal', weight: 700 });
-  if (fontData900) fonts.push({ name: 'NotoSansKR', data: fontData900, style: 'normal', weight: 900 });
+  if (fontData) {
+    fonts.push({ name: 'NotoSansKR', data: fontData, style: 'normal', weight: 700 });
+    fonts.push({ name: 'NotoSansKR', data: fontData, style: 'normal', weight: 900 });
+  }
   const fontFamily = fonts.length > 0 ? 'NotoSansKR' : 'sans-serif';
 
   // 참교육 테스트 전용 카드
@@ -361,15 +362,8 @@ export async function GET(req: Request) {
   // 기본 카드 (참교육 외 테스트용)
   const description = resolved?.view.description ?? '나를 알아가는 재미있는 테스트';
 
-  let fontDataGeneric: ArrayBuffer | null = null;
-  try {
-    const fontRes = await fetch(
-      'https://fonts.gstatic.com/s/notosanskr/v36/PbyxFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.0.woff2'
-    );
-    fontDataGeneric = await fontRes.arrayBuffer();
-  } catch {
-    // ignore
-  }
+  // 위에서 로드한 fontData 재사용
+  const fontDataGeneric = fontData;
 
   return new ImageResponse(
     (
@@ -382,7 +376,7 @@ export async function GET(req: Request) {
           alignItems: 'center',
           justifyContent: 'center',
           background: 'linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%)',
-          fontFamily: fontDataGeneric ? 'NotoSansKR' : 'sans-serif',
+          fontFamily: fontFamily,
           padding: '60px',
         }}
       >
@@ -460,3 +454,4 @@ export async function GET(req: Request) {
     }
   );
 }
+
