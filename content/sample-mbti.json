@@ -1,0 +1,102 @@
+{
+  "slug": "sample-mbti",
+  "engine": "sum",
+  "engineVersion": "1.0.0",
+  "contentType": "personality",
+  "version": 1,
+  "fallbackResultId": "result-ambivert",
+  "allowPartial": false,
+  "meta": {
+    "title": "나의 에너지 유형은?",
+    "description": "4가지 질문으로 알아보는 나의 에너지 유형 테스트",
+    "thumbnail": "/images/sample-mbti-thumb.png",
+    "category": "personality",
+    "tags": ["성격", "에너지", "유형"],
+    "estimatedSec": 60,
+    "publishedAt": "2026-06-18"
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "주말에 주로 어떻게 시간을 보내시나요?",
+      "options": [
+        { "id": "q1a", "label": "친구들과 활발하게 어울린다", "score": 3 },
+        { "id": "q1b", "label": "가끔 모임에 나간다", "score": 2 },
+        { "id": "q1c", "label": "집에서 혼자 쉰다", "score": 1 },
+        { "id": "q1d", "label": "완전히 혼자만의 시간이 필요하다", "score": 0 }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "새로운 사람을 만날 때 어떤 편인가요?",
+      "options": [
+        { "id": "q2a", "label": "먼저 적극적으로 다가간다", "score": 3 },
+        { "id": "q2b", "label": "상황을 보고 자연스럽게 어울린다", "score": 2 },
+        { "id": "q2c", "label": "상대가 먼저 다가오길 기다린다", "score": 1 },
+        { "id": "q2d", "label": "낯선 사람과 어울리는 게 피곤하다", "score": 0 }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "에너지가 충전되는 방식은?",
+      "options": [
+        { "id": "q3a", "label": "사람들과 함께할 때", "score": 3 },
+        { "id": "q3b", "label": "활동적인 취미 생활", "score": 2 },
+        { "id": "q3c", "label": "독서나 영화 감상", "score": 1 },
+        { "id": "q3d", "label": "완전한 고요함과 혼자만의 시간", "score": 0 }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "파티나 모임에 참석했을 때?",
+      "options": [
+        { "id": "q4a", "label": "분위기를 주도하며 즐긴다", "score": 3 },
+        { "id": "q4b", "label": "적당히 어울리며 즐긴다", "score": 2 },
+        { "id": "q4c", "label": "아는 사람들과만 이야기한다", "score": 1 },
+        { "id": "q4d", "label": "빨리 집에 가고 싶다", "score": 0 }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "result-introvert",
+      "title": "🌙 고요한 내향형",
+      "summary": "혼자만의 시간이 소중한 당신",
+      "description": "당신은 깊은 사색을 즐기는 내향적인 성격입니다. 혼자만의 시간을 통해 에너지를 충전하고, 소수의 사람들과 깊은 관계를 맺는 것을 선호합니다. 조용한 환경에서 집중력이 높아지며, 창의적인 아이디어가 많이 떠오릅니다.",
+      "image": "/images/result-introvert.png",
+      "shareText": "나는 고요한 내향형! 혼자만의 시간이 소중한 나 😌 당신은 어떤 유형인가요?",
+      "products": ["마음챙김 독서 가이드", "프리미엄 허브티 세트"],
+      "mapping": { "kind": "range", "min": 0, "max": 4 }
+    },
+    {
+      "id": "result-ambivert",
+      "title": "🌓 균형잡힌 중간형",
+      "summary": "상황에 따라 유연하게 적응하는 당신",
+      "description": "당신은 내향과 외향의 특성을 균형 있게 가진 중간형입니다. 사람들과 어울리는 것도 즐기지만, 혼자만의 시간도 중요하게 여깁니다. 다양한 상황에 유연하게 적응할 수 있는 능력이 강점입니다.",
+      "image": "/images/result-ambivert.png",
+      "shareText": "나는 균형잡힌 중간형! 어디서든 잘 적응하는 나 ⚖️ 당신은 어떤 유형인가요?",
+      "products": ["마음챙김 독서 가이드", "프리미엄 허브티 세트"],
+      "mapping": { "kind": "range", "min": 4, "max": 8 }
+    },
+    {
+      "id": "result-social",
+      "title": "🌗 사교적 중간형",
+      "summary": "사람을 좋아하지만 혼자도 괜찮은 당신",
+      "description": "당신은 사람들과의 교류를 즐기면서도 혼자만의 시간도 소중히 여기는 균형잡힌 성격입니다. 활발한 사교 활동과 개인적인 휴식을 적절히 조화롭게 유지합니다.",
+      "image": "/images/result-social.png",
+      "shareText": "나는 사교적 중간형! 사람도 좋고 혼자도 좋은 나 🌟 당신은 어떤 유형인가요?",
+      "products": ["마음챙김 독서 가이드", "프리미엄 허브티 세트"],
+      "mapping": { "kind": "range", "min": 8, "max": 11 }
+    },
+    {
+      "id": "result-extrovert",
+      "title": "☀️ 활발한 외향형",
+      "summary": "사람들과 함께할 때 빛나는 당신",
+      "description": "당신은 에너지 넘치는 외향적인 성격입니다! 사람들과 어울리면서 에너지를 충전하고, 새로운 만남을 즐깁니다. 어디서든 분위기를 밝게 만드는 타고난 소셜 버터플라이입니다.",
+      "image": "/images/result-extrovert.png",
+      "shareText": "나는 활발한 외향형! 사람이 있어야 빛나는 나 ☀️ 당신은 어떤 유형인가요?",
+      "products": ["마음챙김 독서 가이드", "프리미엄 허브티 세트"],
+      "mapping": { "kind": "range", "min": 11, "max": 12 }
+    }
+  ]
+}

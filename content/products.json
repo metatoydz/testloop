@@ -1,0 +1,16 @@
+{
+  "products": [
+    {
+      "name": "마음챙김 독서 가이드",
+      "image": "/images/products/book.png",
+      "coupangUrl": "https://www.coupang.com/vp/products/example1",
+      "category": "도서"
+    },
+    {
+      "name": "프리미엄 허브티 세트",
+      "image": "/images/products/tea.png",
+      "coupangUrl": "https://www.coupang.com/vp/products/example2",
+      "category": "식품"
+    }
+  ]
+}
