@@ -171,12 +171,9 @@ export async function GET(req: Request) {
   const cardCfg = slug === 'chamgyoyuk' ? CHAMGYOYUK_CARD[rid] : undefined;
 
   if (cardCfg) {
-    // 결과의 summary(펀치라인) 가져오기
     const result = content?.results.find((r) => r.id === rid);
     const summary = result?.summary ?? '';
-
-    // NAME 폰트 크기 (긴 이름은 축소)
-    const nameFontSize = cardCfg.name.length > 5 ? 96 : 150;
+    const nameFontSize = cardCfg.name.length > 5 ? 60 : 90;
 
     return new ImageResponse(
       (
@@ -192,161 +189,85 @@ export async function GET(req: Request) {
           }}
         >
           {/* 프레임 */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '11px',
-              left: '11px',
-              right: '11px',
-              bottom: '11px',
-              border: `10px solid ${cardCfg.frame}`,
-              borderRadius: '7px',
-            }}
-          />
+          <div style={{
+            position: 'absolute', top: '10px', left: '10px',
+            right: '10px', bottom: '10px',
+            border: `6px solid ${cardCfg.frame}`, borderRadius: '8px',
+          }} />
 
-          {/* 라벨 필 */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '33px',
-              left: '36px',
-              width: '221px',
-              height: '33px',
-              background: cardCfg.pillBg,
-              borderRadius: '17px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '17px',
-              fontWeight: 800,
+          {/* 상단: 라벨 + 도장 */}
+          <div style={{
+            position: 'absolute', top: '28px', left: '28px', right: '28px',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          }}>
+            {/* 라벨 */}
+            <div style={{
+              background: cardCfg.pillBg, borderRadius: '20px',
+              padding: '6px 18px', fontSize: '15px', fontWeight: 800,
               color: cardCfg.pillText,
-            }}
-          >
-            참교육 진단서 {cardCfg.no}
-          </div>
-
-          {/* 도장 (이중원 + 텍스트) */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '39px',
-              left: '614px',
-              width: '125px',
-              height: '125px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+            }}>
+              참교육 진단서 {cardCfg.no}
+            </div>
+            {/* 도장 */}
+            <div style={{
+              width: '100px', height: '100px', display: 'flex',
+              alignItems: 'center', justifyContent: 'center',
               transform: 'rotate(-14deg)',
-            }}
-          >
-            {/* 외원 */}
-            <div
-              style={{
-                position: 'absolute',
-                width: '125px',
-                height: '125px',
-                borderRadius: '50%',
-                border: `8px solid ${cardCfg.stamp}`,
-              }}
-            />
-            {/* 내원 */}
-            <div
-              style={{
-                position: 'absolute',
-                width: '103px',
-                height: '103px',
-                borderRadius: '50%',
-                border: `6px solid ${cardCfg.stamp}`,
-              }}
-            />
-            {/* 도장 텍스트 */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: cardCfg.stamp,
-                fontSize: '28px',
-                fontWeight: 900,
-                lineHeight: 1.1,
-              }}
-            >
-              <span>참교육</span>
-              <span>필요</span>
+            }}>
+              <div style={{
+                position: 'absolute', width: '100px', height: '100px',
+                borderRadius: '50%', border: `5px solid ${cardCfg.stamp}`,
+              }} />
+              <div style={{
+                position: 'absolute', width: '80px', height: '80px',
+                borderRadius: '50%', border: `4px solid ${cardCfg.stamp}`,
+              }} />
+              <div style={{
+                display: 'flex', flexDirection: 'column',
+                alignItems: 'center', color: cardCfg.stamp,
+                fontSize: '22px', fontWeight: 900, lineHeight: 1.1,
+              }}>
+                <span>참교육</span><span>필요</span>
+              </div>
             </div>
           </div>
 
           {/* 유형명 */}
-          <div
-            style={{
-              position: 'absolute',
-              left: '72px',
-              bottom: '268px',
-              fontSize: `${nameFontSize}px`,
-              fontWeight: 900,
-              color: cardCfg.ink,
-              lineHeight: 1,
-            }}
-          >
+          <div style={{
+            position: 'absolute', left: '28px', top: '160px',
+            fontSize: `${nameFontSize}px`, fontWeight: 900,
+            color: cardCfg.ink, lineHeight: 1,
+          }}>
             {cardCfg.name}
           </div>
 
           {/* 태그라인 */}
-          <div
-            style={{
-              position: 'absolute',
-              left: '78px',
-              bottom: '210px',
-              fontSize: '44px',
-              fontWeight: 800,
-              color: cardCfg.tagline,
-            }}
-          >
+          <div style={{
+            position: 'absolute', left: '28px', top: '270px',
+            fontSize: '26px', fontWeight: 800, color: cardCfg.tagline,
+          }}>
             {cardCfg.taglineText}
           </div>
 
           {/* 펀치라인 박스 */}
-          <div
-            style={{
-              position: 'absolute',
-              left: '72px',
-              bottom: '100px',
-              width: '900px',
-              minHeight: '96px',
-              background: '#FFFFFF',
-              border: `6px solid ${cardCfg.frame}`,
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '0 20px',
-              fontSize: '34px',
-              fontWeight: 700,
-              color: '#181818',
-              flexWrap: 'wrap',
-            }}
-          >
+          <div style={{
+            position: 'absolute', left: '24px', right: '24px', top: '340px',
+            background: '#FFFFFF22', border: `4px solid ${cardCfg.frame}`,
+            borderRadius: '8px', padding: '14px 16px',
+            fontSize: '20px', fontWeight: 700, color: cardCfg.ink,
+            lineHeight: 1.4,
+          }}>
             {summary}
           </div>
 
-          {/* 푸터 바 */}
-          <div
-            style={{
-              position: 'absolute',
-              left: '11px',
-              bottom: '11px',
-              width: '1164px',
-              height: '54px',
-              background: cardCfg.footerBg,
-              borderRadius: '0 0 4px 4px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '28px',
-              fontWeight: 800,
-              color: cardCfg.footerText,
-            }}
-          >
+          {/* 푸터 */}
+          <div style={{
+            position: 'absolute', left: '10px', right: '10px', bottom: '10px',
+            height: '50px', background: cardCfg.footerBg,
+            borderRadius: '0 0 4px 4px', display: 'flex',
+            alignItems: 'center', justifyContent: 'center',
+            fontSize: '22px', fontWeight: 800, color: cardCfg.footerText,
+          }}>
             나의 참교육 유형은?
           </div>
         </div>
