@@ -1,7 +1,17 @@
 export const runtime = 'edge';
 
 import { ImageResponse } from 'next/og';
-import chamgyoyukData from '../../../../content/chamgyoyuk.json';
+// chamgyoyuk 결과 요약 (Edge 용량 절약을 위해 필요한 데이터만 인라인)
+const CHAMGYOYUK_SUMMARIES: Record<string, string> = {
+  late:    "'이제 출발해'가 거짓말인 걸 본인만 모름",
+  myway:   "물어보는 척하지만 사실 동의 구하는 중",
+  mbti:    "모든 인간관계를 알파벳 네 글자로 설명함",
+  plan:    "다이어리·앱·노션 다 있는데 실행은 0",
+  night:   "새벽 2시만 되면 시인 됨",
+  talk:    "남 얘기 듣다가 어느새 본인 얘기로 핸들 꺾음",
+  taste:   "모든 음식에 '정답'이 있다고 믿음",
+  ghost:   "1 사라진 지 3일째, 답장은 마음속으로 이미 함",
+};
 
 const CARD: Record<string, { bg: string; ink: string; accent: string; name: string; tagline: string; no: string }> = {
   late:    { bg: '#FFD23F', ink: '#181818', accent: '#181818', name: '곧도착러',        tagline: '지각계의 큰손',         no: '01' },
@@ -19,12 +29,7 @@ export async function GET(req: Request) {
   const slug = searchParams.get('slug') ?? '';
   const rid = searchParams.get('rid') ?? '';
 
-  // content/*.json은 fs로 읽으면 Vercel에서 실패 → 정적 import 사용
-  const contentMap: Record<string, { results: Array<{ id: string; title: string; summary?: string }> }> = {
-    chamgyoyuk: chamgyoyukData as { results: Array<{ id: string; title: string; summary?: string }> },
-  };
-  const content = contentMap[slug];
-  const result = content?.results.find((r: { id: string }) => r.id === rid);
+  const result = { summary: CHAMGYOYUK_SUMMARIES[rid] ?? '' };
   const card = CARD[rid];
 
   const title = result?.title ?? 'TestLoop';
