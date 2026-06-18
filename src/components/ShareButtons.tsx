@@ -54,17 +54,20 @@ export function ShareButtons({ result, url, slug, rid }: ShareButtonsProps) {
           link: {
             mobileWebUrl: shareUrl,
             webUrl: shareUrl,
+            androidExecutionParams: `url=${encodeURIComponent(shareUrl)}`,
+            iosExecutionParams: `url=${encodeURIComponent(shareUrl)}`,
           },
         },
         buttons: [
           {
-            title: '내 결과 보기',
+            title: '결과 보러가기 →',
             link: {
               mobileWebUrl: shareUrl,
               webUrl: shareUrl,
             },
           },
         ],
+        installTalk: true,
       });
     } else {
       // SDK 미로드 시 Web Share API → 클립보드 순 fallback
