@@ -11,12 +11,12 @@ export function ResultCard({ result }: ResultCardProps) {
   return (
     <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
       {view.image && (
-        <div className="relative w-full aspect-square">
+        <div className="relative w-full aspect-[4/3]">
           <Image
             src={view.image}
             alt={view.title}
             fill
-            className="object-cover"
+            className="object-contain bg-white"
             unoptimized
           />
         </div>

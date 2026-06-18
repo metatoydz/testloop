@@ -1,10 +1,10 @@
-import type { TestContent, ResolvedResult } from './contract';
+﻿import type { TestContent, ResolvedResult } from './contract';
 
 function toAbsoluteUrl(path: string): string {
   if (!path) return path;
   if (path.startsWith('http://') || path.startsWith('https://')) return path;
   const base =
-    process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, '') ?? 'http://localhost:3000';
+    process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, '') ?? 'https://testloop-alpha.vercel.app';
   return `${base}${path.startsWith('/') ? '' : '/'}${path}`;
 }
 
@@ -38,3 +38,4 @@ export function toResolved(content: TestContent, resultId: string): ResolvedResu
     engineMeta: { engine: content.engine, engineVersion: content.engineVersion },
   };
 }
+

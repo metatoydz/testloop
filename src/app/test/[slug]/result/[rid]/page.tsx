@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!content) return { title: '결과를 찾을 수 없습니다' };
 
   const resolved = toResolved(content, rid);
-  const base = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000';
+  const base = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://testloop-alpha.vercel.app';
   const ogUrl = `${base}/api/og?slug=${slug}&rid=${rid}`;
 
   return {
@@ -48,6 +48,12 @@ export default async function ResultPage({ params }: Props) {
   }
 
   const resolved = toResolved(content, rid);
+  const base = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://testloop-alpha.vercel.app';
+
+  // 결과 이미지가 없으면 OG 이미지로 대체
+  if (!resolved.view.image || resolved.view.image.startsWith('/img/')) {
+    resolved.view.image = `${base}/api/og?slug=${slug}&rid=${rid}`;
+  }
 
   // 상품 로드 (products.json은 pid → Product 딕셔너리)
   const productsMap = productsData as Record<string, Product>;
