@@ -182,8 +182,8 @@ export async function GET(req: Request) {
       (
         <div
           style={{
-            width: '1200px',
-            height: '630px',
+            width: '800px',
+            height: '400px',
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
@@ -195,12 +195,12 @@ export async function GET(req: Request) {
           <div
             style={{
               position: 'absolute',
-              top: '18px',
-              left: '18px',
-              right: '18px',
-              bottom: '18px',
+              top: '11px',
+              left: '11px',
+              right: '11px',
+              bottom: '11px',
               border: `10px solid ${cardCfg.frame}`,
-              borderRadius: '10px',
+              borderRadius: '7px',
             }}
           />
 
@@ -208,16 +208,16 @@ export async function GET(req: Request) {
           <div
             style={{
               position: 'absolute',
-              top: '52px',
-              left: '54px',
-              width: '332px',
-              height: '52px',
+              top: '33px',
+              left: '36px',
+              width: '221px',
+              height: '33px',
               background: cardCfg.pillBg,
-              borderRadius: '26px',
+              borderRadius: '17px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '26px',
+              fontSize: '17px',
               fontWeight: 800,
               color: cardCfg.pillText,
             }}
@@ -229,10 +229,10 @@ export async function GET(req: Request) {
           <div
             style={{
               position: 'absolute',
-              top: '62px',
-              left: '921px',
-              width: '188px',
-              height: '188px',
+              top: '39px',
+              left: '614px',
+              width: '125px',
+              height: '125px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -243,8 +243,8 @@ export async function GET(req: Request) {
             <div
               style={{
                 position: 'absolute',
-                width: '188px',
-                height: '188px',
+                width: '125px',
+                height: '125px',
                 borderRadius: '50%',
                 border: `8px solid ${cardCfg.stamp}`,
               }}
@@ -253,8 +253,8 @@ export async function GET(req: Request) {
             <div
               style={{
                 position: 'absolute',
-                width: '154px',
-                height: '154px',
+                width: '103px',
+                height: '103px',
                 borderRadius: '50%',
                 border: `6px solid ${cardCfg.stamp}`,
               }}
@@ -267,7 +267,7 @@ export async function GET(req: Request) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: cardCfg.stamp,
-                fontSize: '42px',
+                fontSize: '28px',
                 fontWeight: 900,
                 lineHeight: 1.1,
               }}
@@ -333,8 +333,8 @@ export async function GET(req: Request) {
           <div
             style={{
               position: 'absolute',
-              left: '18px',
-              bottom: '18px',
+              left: '11px',
+              bottom: '11px',
               width: '1164px',
               height: '54px',
               background: cardCfg.footerBg,
@@ -352,8 +352,8 @@ export async function GET(req: Request) {
         </div>
       ),
       {
-        width: 1200,
-        height: 630,
+        width: 800,
+        height: 400,
         fonts,
       }
     );
@@ -369,8 +369,8 @@ export async function GET(req: Request) {
     (
       <div
         style={{
-          width: '1200px',
-          height: '630px',
+          width: '800px',
+          height: '400px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -439,8 +439,8 @@ export async function GET(req: Request) {
       </div>
     ),
     {
-      width: 1200,
-      height: 630,
+      width: 800,
+      height: 400,
       fonts: fontDataGeneric
         ? [
             {
@@ -454,4 +454,5 @@ export async function GET(req: Request) {
     }
   );
 }
+
 
