@@ -49,11 +49,11 @@ export default async function ResultPage({ params }: Props) {
 
   const resolved = toResolved(content, rid);
 
-  // 상품 로드
-  const allProducts: Product[] = (productsData as { products: Product[] }).products;
-  const resultProducts = allProducts.filter((p) =>
-    resolved.products.includes(p.name)
-  );
+  // 상품 로드 (products.json은 pid → Product 딕셔너리)
+  const productsMap = productsData as Record<string, Product>;
+  const resultProducts: Product[] = resolved.products
+    .map((pid) => productsMap[pid])
+    .filter((p): p is Product => Boolean(p));
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 pb-16">

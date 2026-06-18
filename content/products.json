@@ -1,16 +1,114 @@
 {
-  "products": [
-    {
-      "name": "마음챙김 독서 가이드",
-      "image": "/images/products/book.png",
-      "coupangUrl": "https://www.coupang.com/vp/products/example1",
-      "category": "도서"
-    },
-    {
-      "name": "프리미엄 허브티 세트",
-      "image": "/images/products/tea.png",
-      "coupangUrl": "https://www.coupang.com/vp/products/example2",
-      "category": "식품"
-    }
-  ]
+  "pid_alarm_clock": {
+    "name": "도망다니는 초강력 알람시계",
+    "image": "/img/products/alarm_clock.png",
+    "coupangUrl": "https://link.coupang.com/a/eGr3szull6",
+    "category": "생활·가전",
+    "_coupangSearch": "도망다니는 알람시계"
+  },
+  "pid_watch": {
+    "name": "심플 데일리 손목시계",
+    "image": "/img/products/watch.png",
+    "coupangUrl": "https://link.coupang.com/a/eGr91VOkXQ",
+    "category": "패션잡화",
+    "_coupangSearch": "손목시계 남녀공용"
+  },
+  "pid_listening_book": {
+    "name": "경청·대화법 도서",
+    "image": "/img/products/listening_book.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsdsBnZZs",
+    "category": "도서",
+    "_coupangSearch": "경청 대화의 기술 책"
+  },
+  "pid_whiteboard": {
+    "name": "탁상 미니 화이트보드",
+    "image": "/img/products/whiteboard.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsgmKNilU",
+    "category": "문구·오피스",
+    "_coupangSearch": "탁상 화이트보드 미니"
+  },
+  "pid_mbti_book": {
+    "name": "MBTI 성격유형 도서",
+    "image": "/img/products/mbti_book.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsji4piFw",
+    "category": "도서",
+    "_coupangSearch": "MBTI 책"
+  },
+  "pid_diary": {
+    "name": "데일리 다이어리·플래너",
+    "image": "/img/products/diary.png",
+    "coupangUrl": "https://link.coupang.com/a/eGslBzMoLs",
+    "category": "문구·오피스",
+    "_coupangSearch": "2026 다이어리 플래너"
+  },
+  "pid_home_band": {
+    "name": "홈트레이닝 밴드 세트",
+    "image": "/img/products/home_band.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsoeitvOu",
+    "category": "스포츠·레저",
+    "_coupangSearch": "홈트 밴드 세트"
+  },
+  "pid_habit_tracker": {
+    "name": "습관 트래커 노트",
+    "image": "/img/products/habit_tracker.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsuLVURoq",
+    "category": "문구·오피스",
+    "_coupangSearch": "습관 트래커 노트"
+  },
+  "pid_sleep_mask": {
+    "name": "수면 안대·숙면템",
+    "image": "/img/products/sleep_mask.png",
+    "coupangUrl": "https://link.coupang.com/a/eGszzBEEto",
+    "category": "생활용품",
+    "_coupangSearch": "수면안대"
+  },
+  "pid_mood_light": {
+    "name": "무드등·취침등",
+    "image": "/img/products/mood_light.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsBL1CffM",
+    "category": "생활·가전",
+    "_coupangSearch": "무드등 취침등"
+  },
+  "pid_listening_book2": {
+    "name": "경청·대화법 도서",
+    "image": "/img/products/listening_book2.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsEBp6jtc",
+    "category": "도서",
+    "_coupangSearch": "경청의 힘 책"
+  },
+  "pid_timer": {
+    "name": "모래시계 타이머",
+    "image": "/img/products/timer.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsGtTeloG",
+    "category": "문구·생활",
+    "_coupangSearch": "모래시계 타이머"
+  },
+  "pid_sauce_set": {
+    "name": "소스 디스펜서·양념통 세트",
+    "image": "/img/products/sauce_set.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsJjfDWzQ",
+    "category": "주방용품",
+    "_coupangSearch": "소스 디스펜서 세트"
+  },
+  "pid_food_book": {
+    "name": "미식·음식 에세이 도서",
+    "image": "/img/products/food_book.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsK4x3ON2",
+    "category": "도서",
+    "_coupangSearch": "음식 에세이 책"
+  },
+  "pid_smartwatch": {
+    "name": "알림 스마트밴드·워치",
+    "image": "/img/products/smartwatch.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsNj7A2cS",
+    "category": "생활·가전",
+    "_coupangSearch": "스마트밴드 알림"
+  },
+  "pid_memo_board": {
+    "name": "냉장고 메모보드·포스트잇",
+    "image": "/img/products/memo_board.png",
+    "coupangUrl": "https://link.coupang.com/a/eGsQhmHHLU",
+    "category": "문구·오피스",
+    "_coupangSearch": "냉장고 메모보드"
+  }
 }

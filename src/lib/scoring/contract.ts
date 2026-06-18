@@ -28,6 +28,7 @@ export interface Option {
   image?: string;
   score?: number; // sum 엔진용
   axis?: Record<string, number>; // type/match 엔진용
+  tally?: Record<string, number>; // tally 엔진용
 }
 
 // 문항 타입
@@ -42,7 +43,8 @@ export interface Question {
 export type ResultMapping =
   | { kind: 'range'; min: number; max: number }
   | { kind: 'typeKey'; key: string }
-  | { kind: 'answer'; pattern: Record<string, string | string[]>; priority: number };
+  | { kind: 'answer'; pattern: Record<string, string | string[]>; priority: number }
+  | { kind: 'tally'; bucket: string };
 
 // 결과 타입
 export interface TestResult {
@@ -59,12 +61,14 @@ export interface TestResult {
 // 엔진 설정 타입
 export interface EngineConfig {
   axes?: { pair: [string, string]; tieBreak: string }[];
+  buckets?: string[];   // tally 엔진용
+  tieBreak?: string[];  // tally 엔진용
 }
 
 // 콘텐츠 타입
 export interface TestContent {
   slug: string;
-  engine: 'sum' | 'type' | 'match' | 'answer' | 'rules';
+  engine: 'sum' | 'type' | 'match' | 'answer' | 'rules' | 'tally';
   engineVersion: string;
   contentType: string;
   version: number;
